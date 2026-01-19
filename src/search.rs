@@ -24,10 +24,24 @@ pub async fn get(
     check_query(&q)?;
 
     let domain = get_domain(&q);
-    let domains = vec![domain.clone()];
+    let mut domains = vec![domain.clone()];
 
     let sld = get_sld(&domain);
     check_sld(&sld)?;
+
+    let mut curr_sld = sld;
+    for i in (0..curr_sld.len()).rev() {
+        if !matches!(curr_sld.as_bytes()[i], b'a' | b'e' | b'i' | b'o' | b'u') {
+            continue;
+        }
+        for j in (1..curr_sld.len() - 1).rev() {
+            let (new_sld, new_tld) = curr_sld.split_at(j);
+            if TLDS.contains_key(new_tld) {
+                domains.push(format!("{new_sld}.{new_tld}"));
+            }
+        }
+        curr_sld.remove(i);
+    }
 
     Ok(Json(SearchRes { domains }))
 }
@@ -47,17 +61,17 @@ fn get_domain(q: &str) -> String {
         .ok()
         .and_then(|u| u.host_str().map(|h| h.to_owned()))
         .unwrap_or_else(|| q.to_owned());
-    let sanitized = host
+    let cleaned = host
         .chars()
         .filter(|c| c.is_ascii_alphanumeric() || *c == '.')
         .collect::<String>();
-    sanitized
+    cleaned
         .split('.')
         .collect::<Vec<_>>()
         .windows(2)
         .find(|w| TLDS.contains_key(w[1]))
         .map(|w| format!("{}.{}", w[0], w[1]))
-        .unwrap_or_else(|| format!("{}.{}", sanitized.split('.').next().unwrap(), DEFAULT_TLD))
+        .unwrap_or_else(|| format!("{}.{}", cleaned.split('.').next().unwrap(), DEFAULT_TLD))
 }
 
 fn get_sld(domain: &str) -> String {
