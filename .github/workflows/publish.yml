@@ -16,7 +16,7 @@ jobs:
         run: |
           pip install cargo-lambda
           cargo lambda build --release
-          cargo lambda deploy shorter --enable-function-url
+          cargo lambda deploy shorter
         env:
           AWS_DEFAULT_REGION: eu-north-1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
