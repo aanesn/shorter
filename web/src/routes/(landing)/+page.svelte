@@ -1,10 +1,11 @@
 <script lang="ts">
 	import Input from "$lib/components/Input.svelte"
 	import { buildSearchParams } from "$lib/utils"
+	import { browser } from "$app/environment"
 	import { goto } from "$app/navigation"
 	import { page } from "$app/state"
 
-	let value = $state(page.url.searchParams.get("q") ?? "")
+	let value = $state(browser ? (page.url.searchParams.get("q") ?? "") : "")
 
 	$effect(() => {
 		if (value) goto("/search" + buildSearchParams({ q: value }))
