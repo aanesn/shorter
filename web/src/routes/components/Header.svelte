@@ -22,7 +22,7 @@
 			<Link {href}>{title}</Link>
 		{/each}
 	</nav>
-	<Button class="hidden duration-300 lg:flex" intent="secondary">Search</Button>
+	<Button class="hidden duration-300 lg:flex">Start now</Button>
 	<Sheet.Root>
 		<Sheet.Trigger>
 			{#snippet child({ props })}

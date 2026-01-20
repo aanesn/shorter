@@ -8,11 +8,10 @@
 		variants: {
 			intent: {
 				primary: "bg-white text-black hover:bg-white/80 shadow-xs font-medium",
-				secondary: "bg-neutral-900 hover:bg-neutral-800 shadow-xs",
 				ghost: "hover:bg-neutral-900"
 			},
 			size: {
-				md: "h-10 px-5 py-2 rounded-full",
+				md: "h-10 px-4.5 py-2 rounded-full",
 				icon: "size-8 rounded-lg"
 			}
 		}
