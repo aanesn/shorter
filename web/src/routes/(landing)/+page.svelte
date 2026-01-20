@@ -1,5 +1,14 @@
-<script>
+<script lang="ts">
 	import Input from "$lib/components/Input.svelte"
+	import { buildSearchParams } from "$lib/utils"
+	import { goto } from "$app/navigation"
+	import { page } from "$app/state"
+
+	let value = $state(page.url.searchParams.get("q") ?? "")
+
+	$effect(() => {
+		if (value) goto("/search" + buildSearchParams({ q: value }))
+	})
 </script>
 
 <svelte:head>
@@ -15,6 +24,6 @@
 		<h2 class="max-w-sm text-center text-neutral-400 max-md:text-balance lg:text-lg">
 			Discover shorter versions of your domain like linktree.com -> linktr.ee
 		</h2>
-		<Input placeholder="Type a domain..." class="max-w-xs" autofocus />
+		<Input placeholder="Type a domain..." class="max-w-xs" autofocus bind:value />
 	</div>
 </div>

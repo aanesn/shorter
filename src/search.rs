@@ -12,6 +12,7 @@ pub struct SearchParams {
     q: String,
 }
 
+#[typeshare::typeshare]
 #[derive(Serialize)]
 pub struct SearchRes {
     domains: Vec<String>,
