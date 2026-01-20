@@ -7,7 +7,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		paths: {
-			relative: true
+			relative: false
 		}
 	}
 }
