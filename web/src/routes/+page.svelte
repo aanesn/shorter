@@ -1,3 +1,7 @@
+<script>
+	import Input from "$lib/components/Input.svelte"
+</script>
+
 <svelte:head>
 	<title>Shorter</title>
 	<meta name="description" content="A domain shortener tool" />
@@ -11,5 +15,6 @@
 		<h2 class="max-w-sm text-center text-neutral-400 max-md:text-balance lg:text-lg">
 			Discover shorter versions of your domain like linktree.com -> linktr.ee
 		</h2>
+		<Input placeholder="Type a domain..." class="max-w-xs" autofocus />
 	</div>
 </div>
