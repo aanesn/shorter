@@ -31,7 +31,7 @@
 				</Button>
 			{/snippet}
 		</Sheet.Trigger>
-		<Sheet.Content class="flex w-64 p-6 lg:hidden" side="left">
+		<Sheet.Content class="flex w-72 p-6 lg:hidden" side="left">
 			<div class="pb-4">
 				{@html Logomark}
 			</div>
