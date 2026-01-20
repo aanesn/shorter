@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @theme {
 	--font-inter: "Inter", sans-serif;
@@ -13,6 +14,9 @@
 }
 
 @layer base {
+	* {
+		@apply border-white/10;
+	}
 	body {
 		@apply bg-black font-inter text-white;
 	}

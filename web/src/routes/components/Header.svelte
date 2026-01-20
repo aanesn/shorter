@@ -1,11 +1,45 @@
 <script lang="ts">
 	import Logomark from "$lib/assets/logomark.svg?raw"
+	import Sidebar from "$lib/assets/sidebar.svg?raw"
 	import Button from "$lib/components/Button.svelte"
+	import Link from "$lib/components/Link.svelte"
+	import * as Sheet from "$lib/components/sheet"
+
+	const navLinks = [
+		{ title: "Repository", href: "https://github.com/aanesn/shorter" },
+		{ title: "Feedback", href: "mailto:contact@shorter.dev" }
+	]
+
+	const sheetLinks = [{ title: "Search", href: "/" }, ...navLinks]
 </script>
 
 <header class="flex h-16 items-center justify-between lg:h-18">
 	<a href="/">
 		{@html Logomark}
 	</a>
-	<Button class="duration-300" intent="secondary">Search</Button>
+	<nav class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-x-8 lg:flex">
+		{#each navLinks as { title, href }}
+			<Link {href}>{title}</Link>
+		{/each}
+	</nav>
+	<Button class="hidden duration-300 lg:flex" intent="secondary">Search</Button>
+	<Sheet.Root>
+		<Sheet.Trigger>
+			{#snippet child({ props })}
+				<Button {...props} intent="ghost" size="icon" class="flex -scale-x-100 lg:hidden">
+					{@html Sidebar}
+				</Button>
+			{/snippet}
+		</Sheet.Trigger>
+		<Sheet.Content class="flex w-64 p-6 lg:hidden" side="left">
+			<div class="pb-4">
+				{@html Logomark}
+			</div>
+			<div class="flex flex-col gap-y-1">
+				{#each sheetLinks as { title, href }}
+					<Link {href} class="text-lg">{title}</Link>
+				{/each}
+			</div>
+		</Sheet.Content>
+	</Sheet.Root>
 </header>

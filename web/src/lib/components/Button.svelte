@@ -4,14 +4,16 @@
 	import { cva, cx } from "$lib/utils"
 
 	const buttonVariants = cva({
-		base: "inline-flex shrink-0 items-center justify-center gap-2 rounded-full text-sm whitespace-nowrap transition-all outline-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
+		base: "inline-flex shrink-0 items-center justify-center gap-2 text-sm whitespace-nowrap transition-all outline-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
 		variants: {
 			intent: {
 				primary: "bg-white text-black hover:bg-white/80 shadow-xs font-medium",
-				secondary: "bg-neutral-900 hover:bg-neutral-800 shadow-xs"
+				secondary: "bg-neutral-900 hover:bg-neutral-800 shadow-xs",
+				ghost: "hover:bg-neutral-900"
 			},
 			size: {
-				md: "h-10 px-5 py-2"
+				md: "h-10 px-5 py-2 rounded-full",
+				icon: "size-8 rounded-lg"
 			}
 		}
 	})
