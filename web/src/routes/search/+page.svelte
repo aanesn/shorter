@@ -58,5 +58,10 @@
 			</div>
 		{/each}
 	</div>
-	<Input placeholder="Type a domain..." class="sticky bottom-12" autofocus bind:value />
+	<Input
+		placeholder="Type a domain..."
+		class="fixed right-0 bottom-10 left-0"
+		autofocus
+		bind:value
+	/>
 </div>
