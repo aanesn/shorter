@@ -12,7 +12,7 @@
 	let searchParams = $derived(buildSearchParams({ q: value }))
 
 	$effect(() => {
-		goto("/search" + searchParams, { replaceState: true, noScroll: true })
+		goto("/search" + searchParams, { replaceState: true })
 	})
 
 	const searchQuery = createQuery<SearchRes>(() => ({
@@ -34,29 +34,31 @@
 	<meta name="description" content="Search for shorter versions of your domain" />
 </svelte:head>
 
-<div class="flex min-h-dvh flex-col">
-	<div class="flex flex-1 flex-col gap-y-3 overflow-y-auto pt-3 pb-13">
-		{#each searchQuery.data?.domains as domain, i}
-			{@const lookup = lookupQueries[i]}
-			{@const available = lookup.data?.available}
-			<div
-				class="flex h-20 items-center justify-between rounded-2xl border bg-neutral-950 px-5"
-			>
-				<span class="truncate">{domain}</span>
-				{#if lookup.isSuccess}
-					<Button
-						href={`https://www.dynadot.com/domain/search?rscreg=shorter&domain=${domain}`}
-						target="_blank"
-						rel="noreferrer"
-						class={`w-24 ${available ? "text-green-500" : "text-red-500"}`}
-					>
-						{available ? "Continue" : "Lookup"}
-					</Button>
-				{:else}
-					<div class="h-10 w-24 animate-pulse rounded-full bg-neutral-900"></div>
-				{/if}
-			</div>
-		{/each}
+<div class="flex h-dvh flex-col">
+	<div class="flex-1 overflow-y-auto">
+		<div class="flex flex-col gap-y-3 pt-3 pb-13">
+			{#each searchQuery.data?.domains as domain, i}
+				{@const lookup = lookupQueries[i]}
+				{@const available = lookup.data?.available}
+				<div
+					class="flex h-20 items-center justify-between rounded-2xl border bg-neutral-950 px-5"
+				>
+					<span class="truncate">{domain}</span>
+					{#if lookup.isSuccess}
+						<Button
+							href={`https://www.dynadot.com/domain/search?rscreg=shorter&domain=${domain}`}
+							target="_blank"
+							rel="noreferrer"
+							class={`w-24 ${available ? "text-green-500" : "text-red-500"}`}
+						>
+							{available ? "Continue" : "Lookup"}
+						</Button>
+					{:else}
+						<div class="h-10 w-24 animate-pulse rounded-full bg-neutral-900"></div>
+					{/if}
+				</div>
+			{/each}
+		</div>
 	</div>
 	<Input placeholder="Type a domain..." class="sticky bottom-10" autofocus bind:value />
 </div>
