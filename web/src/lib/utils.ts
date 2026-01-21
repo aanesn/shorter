@@ -15,7 +15,7 @@ export const apiUrl = dev
 export function buildSearchParams(params: Record<string, string>): string {
 	const searchParams = new URLSearchParams()
 	for (const [key, value] of Object.entries(params)) {
-		if (value) searchParams.set(key, value)
+		value ? searchParams.set(key, value) : searchParams.delete(key)
 	}
 	return searchParams.toString() ? `?${searchParams}` : ""
 }

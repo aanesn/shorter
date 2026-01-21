@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { createQuery } from "@tanstack/svelte-query"
 	import type { SearchRes } from "$lib/bindings"
+	import Button from "$lib/components/Button.svelte"
 	import Input from "$lib/components/Input.svelte"
 	import { apiUrl, buildSearchParams } from "$lib/utils"
 	import { browser } from "$app/environment"
@@ -11,7 +12,7 @@
 	let searchParams = $derived(buildSearchParams({ q: value }))
 
 	$effect(() => {
-		if (value) goto("/search" + searchParams, { replaceState: true })
+		goto("/search" + searchParams, { replaceState: true })
 	})
 
 	const searchQuery = createQuery<SearchRes>(() => ({
@@ -25,5 +26,21 @@
 	<meta name="description" content="Search for shorter versions of your domain" />
 </svelte:head>
 
-<Input placeholder="Type a domain..." autofocus bind:value />
-{JSON.stringify(searchQuery.data)}
+<div class="flex min-h-screen flex-col">
+	<div class="flex flex-1 flex-col gap-y-3 pt-3 pb-15">
+		{#each searchQuery.data?.domains as domain}
+			<div
+				class="flex h-20 items-center justify-between rounded-2xl border bg-neutral-950 px-5"
+			>
+				{domain}
+				<Button
+					href={`https://www.dynadot.com/domain/search?rscreg=shorter&domain=${domain}`}
+					class="text-green-500"
+				>
+					Continue
+				</Button>
+			</div>
+		{/each}
+	</div>
+	<Input placeholder="Type a domain..." class="sticky bottom-12" autofocus bind:value />
+</div>
