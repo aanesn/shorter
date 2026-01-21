@@ -12,7 +12,7 @@
 	let searchParams = $derived(buildSearchParams({ q: value }))
 
 	$effect(() => {
-		goto("/search" + searchParams, { replaceState: true, keepFocus: true, noScroll: true })
+		goto("/search" + searchParams, { replaceState: true })
 	})
 
 	const searchQuery = createQuery<SearchRes>(() => ({
@@ -35,7 +35,7 @@
 </svelte:head>
 
 <div class="flex min-h-screen flex-col">
-	<div class="flex flex-1 flex-col gap-y-3 pt-3 pb-15">
+	<div class="flex flex-col gap-y-3 pt-3 pb-15">
 		{#each searchQuery.data?.domains as domain, i}
 			{@const lookup = lookupQueries[i]}
 			{@const available = lookup.data?.available}
