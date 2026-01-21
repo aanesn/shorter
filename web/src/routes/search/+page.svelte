@@ -12,7 +12,7 @@
 	let searchParams = $derived(buildSearchParams({ q: value }))
 
 	$effect(() => {
-		goto("/search" + searchParams, { replaceState: true })
+		goto("/search" + searchParams, { replaceState: true, keepFocus: true, noScroll: true })
 	})
 
 	const searchQuery = createQuery<SearchRes>(() => ({

@@ -48,7 +48,7 @@
 			</div>
 			<div class="flex flex-col gap-y-1">
 				{#each sheetLinks as { title, href, target, rel }}
-					<Link {href} {target} {rel}>{title}</Link>
+					<Link {href} {target} {rel} class="text-lg">{title}</Link>
 				{/each}
 			</div>
 		</Sheet.Content>
