@@ -6,11 +6,15 @@
 	import * as Sheet from "$lib/components/sheet"
 
 	const navLinks = [
+		{
+			title: "Dynadot",
+			href: "https://www.dynadot.com/?rsc=shorter&rsctrn=shorter&rscreg=shorter&rsceh=shorter&rscsb=shorter&rscco=shorter&rscbo=shorter"
+		},
 		{ title: "Repository", href: "https://github.com/aanesn/shorter" },
 		{ title: "Feedback", href: "mailto:contact@shorter.dev" }
 	]
 
-	const sheetLinks = [{ title: "Search", href: "/" }, ...navLinks]
+	const sheetLinks = [...navLinks, { title: "Search", href: "/search" }]
 </script>
 
 <header class="flex h-16 items-center justify-between lg:h-18">
@@ -22,7 +26,7 @@
 			<Link {href}>{title}</Link>
 		{/each}
 	</nav>
-	<Button class="hidden duration-300 lg:flex">Start now</Button>
+	<Button class="hidden duration-300 lg:flex" href="/search">Search</Button>
 	<Sheet.Root>
 		<Sheet.Trigger>
 			{#snippet child({ props })}
