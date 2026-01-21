@@ -27,7 +27,7 @@ pub async fn get(
     let domain = get_domain(&q);
     let mut domains = vec![domain.clone()];
 
-    let sld = get_sld(&domain);
+    let sld = domain.split('.').next().unwrap().to_owned();
     check_sld(&sld)?;
 
     let mut curr_sld = sld;
@@ -73,10 +73,6 @@ fn get_domain(q: &str) -> String {
         .find(|w| TLDS.contains_key(w[1]))
         .map(|w| format!("{}.{}", w[0], w[1]))
         .unwrap_or_else(|| format!("{}.{}", cleaned.split('.').next().unwrap(), DEFAULT_TLD))
-}
-
-fn get_sld(domain: &str) -> String {
-    domain.split('.').next().unwrap().to_owned()
 }
 
 fn check_sld(sld: &str) -> anyhow::Result<()> {

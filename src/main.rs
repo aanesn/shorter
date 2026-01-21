@@ -1,3 +1,4 @@
+use crate::error::ApiError;
 use axum::{
     Router,
     extract::Request,
@@ -10,6 +11,7 @@ use std::time::Duration;
 use tower_http::cors::CorsLayer;
 
 mod error;
+mod lookup;
 mod search;
 mod tlds;
 
@@ -28,6 +30,7 @@ async fn main() -> anyhow::Result<()> {
     let app = Router::new()
         .route("/", get(|| async { "Hello, World!" }))
         .route("/search", get(search::get))
+        .route("/lookup", get(lookup::get))
         .layer(middleware::from_fn(cache_middleware))
         .layer(cors);
 
@@ -36,11 +39,11 @@ async fn main() -> anyhow::Result<()> {
     Ok(axum::serve(listener, app).await?)
 }
 
-async fn cache_middleware(req: Request, next: Next) -> Response {
+async fn cache_middleware(req: Request, next: Next) -> anyhow::Result<Response, ApiError> {
     let mut res = next.run(req).await;
     res.headers_mut().insert(
         header::CACHE_CONTROL,
-        format!("public, max-age={MAX_AGE}").parse().unwrap(),
+        format!("public, max-age={MAX_AGE}").parse()?,
     );
-    res
+    Ok(res)
 }

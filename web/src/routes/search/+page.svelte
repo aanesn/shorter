@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { createQuery } from "@tanstack/svelte-query"
-	import type { SearchRes } from "$lib/bindings"
+	import { createQueries, createQuery } from "@tanstack/svelte-query"
+	import type { LookupRes, SearchRes } from "$lib/bindings"
 	import Button from "$lib/components/Button.svelte"
 	import Input from "$lib/components/Input.svelte"
 	import { apiUrl, buildSearchParams } from "$lib/utils"
@@ -19,6 +19,14 @@
 		queryKey: ["search", value],
 		queryFn: async () => await fetch(`${apiUrl}/search${searchParams}`).then((r) => r.json())
 	}))
+
+	const lookupQueries = createQueries(() => ({
+		queries: (searchQuery.data?.domains ?? []).map((domain) => ({
+			queryKey: ["lookup", domain],
+			queryFn: async (): Promise<LookupRes> =>
+				await fetch(`${apiUrl}/lookup?domain=${domain}`).then((r) => r.json())
+		}))
+	}))
 </script>
 
 <svelte:head>
@@ -28,17 +36,25 @@
 
 <div class="flex min-h-screen flex-col">
 	<div class="flex flex-1 flex-col gap-y-3 pt-3 pb-15">
-		{#each searchQuery.data?.domains as domain}
+		{#each searchQuery.data?.domains as domain, i}
+			{@const lookup = lookupQueries[i]}
+			{@const available = lookup.data?.available}
 			<div
 				class="flex h-20 items-center justify-between rounded-2xl border bg-neutral-950 px-5"
 			>
 				{domain}
-				<Button
-					href={`https://www.dynadot.com/domain/search?rscreg=shorter&domain=${domain}`}
-					class="text-green-500"
-				>
-					Continue
-				</Button>
+				{#if lookup.isSuccess}
+					<Button
+						href={`https://www.dynadot.com/domain/search?rscreg=shorter&domain=${domain}`}
+						target="_blank"
+						rel="noreferrer"
+						class={`w-24 ${available ? "text-green-500" : "text-red-500"}`}
+					>
+						{available ? "Continue" : "Lookup"}
+					</Button>
+				{:else}
+					<div class="h-10 w-24 animate-pulse rounded-full bg-neutral-900"></div>
+				{/if}
 			</div>
 		{/each}
 	</div>
