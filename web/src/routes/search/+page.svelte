@@ -34,8 +34,8 @@
 	<meta name="description" content="Search for shorter versions of your domain" />
 </svelte:head>
 
-<div class="flex min-h-screen flex-col">
-	<div class="flex flex-1 flex-col gap-y-3 pt-3 pb-15">
+<div class="flex min-h-dvh flex-col">
+	<div class="flex flex-1 flex-col gap-y-3 overflow-y-auto pt-3 pb-13">
 		{#each searchQuery.data?.domains as domain, i}
 			{@const lookup = lookupQueries[i]}
 			{@const available = lookup.data?.available}
@@ -58,10 +58,5 @@
 			</div>
 		{/each}
 	</div>
-	<Input
-		placeholder="Type a domain..."
-		class="fixed right-0 bottom-10 left-0"
-		autofocus
-		bind:value
-	/>
+	<Input placeholder="Type a domain..." class="sticky bottom-10" autofocus bind:value />
 </div>
