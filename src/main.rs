@@ -1,4 +1,5 @@
 use crate::error::ApiError;
+use anyhow::Context;
 use axum::{
     Router,
     extract::Request,
@@ -17,8 +18,17 @@ mod tlds;
 
 const MAX_AGE: u64 = 300; // 5 min
 
+#[derive(Clone)]
+struct Ctx {
+    reqwest: reqwest::Client,
+    dynadot_api_key: String,
+    hickory: hickory_resolver::TokioResolver,
+}
+
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
+    dotenvy::dotenv().ok();
+
     let cors = CorsLayer::new()
         .allow_origin([
             "https://shorter.dev".parse()?,
@@ -32,7 +42,12 @@ async fn main() -> anyhow::Result<()> {
         .route("/search", get(search::get))
         .route("/lookup", get(lookup::get))
         .layer(middleware::from_fn(cache_middleware))
-        .layer(cors);
+        .layer(cors)
+        .with_state(Ctx {
+            reqwest: reqwest::Client::new(),
+            dynadot_api_key: std::env::var("DYNADOT_API_KEY").context("missing dynadot api key")?,
+            hickory: hickory_resolver::Resolver::builder_tokio()?.build(),
+        });
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:8080").await?;
     println!("listening on http://{}", listener.local_addr()?);
