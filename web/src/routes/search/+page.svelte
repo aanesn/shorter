@@ -34,4 +34,32 @@
 	<meta name="description" content="Search for shorter versions of your domain" />
 </svelte:head>
 
-<Input placeholder="Type a domain..." class="fixed right-0 bottom-10 left-0" autofocus bind:value />
+<div class="py-6">
+	<Input placeholder="Type a domain..." autofocus bind:value />
+	<div class="flex flex-col gap-y-3 pt-3">
+		{#if searchQuery.isSuccess}
+			{#each searchQuery.data.domains as domain, i}
+				{@const lookupQuery = lookupQueries[i]}
+				<div
+					class="flex h-20 items-center justify-between rounded-2xl border bg-neutral-950 px-5"
+				>
+					<span class="truncate">{domain}</span>
+					{#if lookupQuery.isSuccess}
+						{@const available = lookupQuery.data.available}
+						<Button
+							href={`https://www.dynadot.com/domain/search?rscreg=shorter&domain=${domain}`}
+							target="_blank"
+							rel="noreferrer"
+							class={`w-24 ${available ? "text-green-500" : "text-red-500"}`}
+						>
+							{available ? "Continue" : "Lookup"}
+						</Button>
+					{:else}
+						<div class="h-10 w-24 animate-pulse rounded-full bg-neutral-900"></div>
+					{/if}
+				</div>
+			{/each}
+			<p class="text-sm text-neutral-500">* These are affiliate links</p>
+		{/if}
+	</div>
+</div>
