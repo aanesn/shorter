@@ -3,10 +3,9 @@
 */
 
 export interface LookupRes {
-	available: boolean;
+	available: boolean[]
 }
 
 export interface SearchRes {
-	domains: string[];
+	domains: string[]
 }
-

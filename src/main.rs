@@ -6,7 +6,7 @@ use axum::{
     http::{Method, header},
     middleware::{self, Next},
     response::Response,
-    routing::get,
+    routing::{get, post},
 };
 use std::time::Duration;
 use tower_http::cors::CorsLayer;
@@ -34,13 +34,14 @@ async fn main() -> anyhow::Result<()> {
             "https://shorter.dev".parse()?,
             "http://localhost:5173".parse()?,
         ])
-        .allow_methods([Method::GET])
+        .allow_methods([Method::GET, Method::POST])
+        .allow_headers([header::CONTENT_TYPE])
         .max_age(Duration::from_secs(MAX_AGE));
 
     let app = Router::new()
         .route("/", get(|| async { "Hello, World!" }))
         .route("/search", get(search::get))
-        .route("/lookup", get(lookup::get))
+        .route("/lookup", post(lookup::post))
         .layer(middleware::from_fn(cache_middleware))
         .layer(cors)
         .with_state(Ctx {

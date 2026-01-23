@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createQueries, createQuery } from "@tanstack/svelte-query"
+	import { createQuery } from "@tanstack/svelte-query"
 	import type { LookupRes, SearchRes } from "$lib/bindings"
 	import Button from "$lib/components/Button.svelte"
 	import Input from "$lib/components/Input.svelte"
@@ -20,12 +20,15 @@
 		queryFn: async () => await fetch(`${apiUrl}/search${searchParams}`).then((r) => r.json())
 	}))
 
-	const lookupQueries = createQueries(() => ({
-		queries: (searchQuery.data?.domains ?? []).map((domain) => ({
-			queryKey: ["lookup", domain],
-			queryFn: async (): Promise<LookupRes> =>
-				await fetch(`${apiUrl}/lookup?domain=${domain}`).then((r) => r.json())
-		}))
+	const lookupQuery = createQuery<LookupRes>(() => ({
+		queryKey: ["lookup", searchQuery.data?.domains],
+		queryFn: async () =>
+			await fetch(`${apiUrl}/lookup`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ domains: searchQuery.data?.domains ?? [] })
+			}).then((r) => r.json()),
+		enabled: !!searchQuery.data?.domains?.length
 	}))
 </script>
 
@@ -39,20 +42,19 @@
 	<div class="flex flex-col gap-y-3 pt-3">
 		{#if searchQuery.isSuccess}
 			{#each searchQuery.data.domains as domain, i}
-				{@const lookupQuery = lookupQueries[i]}
 				<div
 					class="flex h-20 items-center justify-between rounded-2xl border bg-neutral-950 px-5"
 				>
 					<span class="truncate">{domain}</span>
 					{#if lookupQuery.isSuccess}
-						{@const available = lookupQuery.data.available}
+						{@const isAvailable = lookupQuery.data.available[i]}
 						<Button
 							href={`https://www.dynadot.com/domain/search?rscreg=shorter&domain=${domain}`}
 							target="_blank"
 							rel="noreferrer"
-							class={`w-24 ${available ? "text-green-500" : "text-red-500"}`}
+							class={`w-24 ${isAvailable ? "text-green-500" : "text-red-500"}`}
 						>
-							{available ? "Continue" : "Lookup"}
+							{isAvailable ? "Continue" : "Lookup"}
 						</Button>
 					{:else}
 						<div class="h-10 w-24 animate-pulse rounded-full bg-neutral-900"></div>
