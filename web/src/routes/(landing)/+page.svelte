@@ -28,3 +28,5 @@
 		<Input placeholder="Type a domain..." class="max-w-xs" autofocus bind:value />
 	</div>
 </div>
+
+<video src="/demo.mp4" autoplay loop muted playsinline class="my-10 rounded-2xl shadow-xl"></video>
