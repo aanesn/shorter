@@ -29,4 +29,4 @@
 	</div>
 </div>
 
-<video src="/demo.mp4" autoplay loop muted playsinline class="my-10 rounded-2xl shadow-xl"></video>
+<video src="/demo.mp4" autoplay loop muted playsinline class="my-20 rounded-2xl shadow-xl"></video>
