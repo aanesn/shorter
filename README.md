@@ -8,4 +8,4 @@
   </p>
 </p>
 
-Search for shorter versions of your domain like linktree.com -> linktr.ee
+Shorter is a domain shortener tool that helps you find shorter versions of your domain like linktree.com -> linktr.ee
