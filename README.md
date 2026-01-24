@@ -8,7 +8,7 @@
   </p>
 </p>
 
-Shorter is a domain shortener tool that helps you find shorter versions of your domain, for example linktree.com -> linktr.ee
+Shorter is a domain shortener tool that helps you find shorter versions of your domain like linktree.com -> linktr.ee
 
 ## Installation
 
@@ -41,4 +41,4 @@ pnpm run dev
 
 ## Credits
 
-The project is inspired by [instantdomain](https://instantdomainsearch.com) and [panelsdesu](https://panelsdesu.com)
+Inspired by [instantdomain](https://instantdomainsearch.com) and [panelsdesu](https://panelsdesu.com)
