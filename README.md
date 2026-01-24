@@ -38,3 +38,7 @@ pnpm run dev
 
 - **Server**: A http api built with [axum](https://github.com/tokio-rs/axum) and deployed to [aws lambda](https://aws.amazon.com/lambda)
 - **Web**: A static site built with [svelte](https://svelte.dev) and deployed to [cloudflare](https://cloudflare.com)
+
+## Credits
+
+The project is inspired by [instantdomain](https://instantdomainsearch.com) and [panelsdesu](https://panelsdesu.com)
