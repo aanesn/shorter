@@ -41,4 +41,4 @@ pnpm run dev
 
 ## Credits
 
-Inspired by [instantdomain](https://instantdomainsearch.com) and [panelsdesu](https://panelsdesu.com)
+Inspired by [instant domain](https://instantdomainsearch.com) and [panelsdesu](https://panelsdesu.com)
