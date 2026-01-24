@@ -18,15 +18,13 @@ Make sure you have [git](https://git-scm.com) installed, then clone this reposit
 git clone https://github.com/aanesn/shorter
 ```
 
-## Server
+## Getting started
 
 To run the server you need [rust](https://rust-lang.org) installed, then run this command:
 
 ```
 cargo run
 ```
-
-## Web
 
 To run the website you need a javascript package manager like [pnpm](https://pnpm.io) installed. Then from inside the `web` directory run these commands:
 
