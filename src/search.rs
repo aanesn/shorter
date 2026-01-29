@@ -44,7 +44,7 @@ pub async fn get(
         curr_sld.remove(i);
     }
 
-    println!("{domain}: {}", domains.len());
+    println!("search {domain} {}", domains.len());
     Ok(Json(SearchRes { domains }))
 }
 
