@@ -8,6 +8,7 @@ use axum::{
     response::Response,
     routing::{get, post},
 };
+use hickory_resolver::{config::ResolverConfig, name_server::TokioConnectionProvider};
 use std::time::Duration;
 use tower_http::cors::CorsLayer;
 
@@ -47,7 +48,11 @@ async fn main() -> anyhow::Result<()> {
         .with_state(Ctx {
             reqwest: reqwest::Client::new(),
             dynadot_api_key: std::env::var("DYNADOT_API_KEY").context("missing dynadot api key")?,
-            hickory: hickory_resolver::Resolver::builder_tokio()?.build(),
+            hickory: hickory_resolver::Resolver::builder_with_config(
+                ResolverConfig::cloudflare(),
+                TokioConnectionProvider::default(),
+            )
+            .build(),
         });
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:8080").await?;
