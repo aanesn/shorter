@@ -11,7 +11,7 @@
 			href: "https://www.dynadot.com/?rsc=shorter&rsctrn=shorter&rscreg=shorter&rsceh=shorter&rscsb=shorter&rscco=shorter&rscbo=shorter"
 		},
 		{ title: "Repository", href: "https://github.com/aanesn/shorter" },
-		{ title: "Feedback", href: "mailto:contact@shorter.dev" }
+		{ title: "Contact", href: "mailto:contact@shorter.dev" }
 	]
 </script>
 

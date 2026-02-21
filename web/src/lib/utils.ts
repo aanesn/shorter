@@ -10,7 +10,7 @@ export const { cva, cx } = defineConfig({
 
 export const apiUrl = dev
 	? "http://127.0.0.1:8080"
-	: "https://42pyaoxk6yhixdjtb46w67pjwy0nuzsj.lambda-url.eu-north-1.on.aws"
+	: "https://vpcfklbh3hvfsauarqu2zjcw6i0hjrrw.lambda-url.eu-west-1.on.aws"
 
 export function buildSearchParams(params: Record<string, string>): string {
 	const searchParams = new URLSearchParams()
