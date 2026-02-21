@@ -50,8 +50,6 @@
 						{@const isAvailable = lookupQuery.data.available[i]}
 						<Button
 							href={`https://www.dynadot.com/domain/search?rscreg=shorter&domain=${domain}`}
-							target="_blank"
-							rel="noreferrer"
 							class={`w-24 ${isAvailable ? "text-green-500" : "text-red-500"}`}
 						>
 							{isAvailable ? "Continue" : "Lookup"}
@@ -61,7 +59,7 @@
 					{/if}
 				</div>
 			{/each}
-			<p class="text-sm text-neutral-500">* These are affiliate links</p>
+			<p class="text-sm text-neutral-500">* Affiliate links</p>
 		{/if}
 	</div>
 </div>

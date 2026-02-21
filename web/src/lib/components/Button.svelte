@@ -11,7 +11,7 @@
 				ghost: "hover:bg-neutral-900"
 			},
 			size: {
-				md: "h-10 px-4.5 py-2 rounded-full",
+				md: "h-10 px-5 py-2 rounded-full",
 				icon: "size-8 rounded-lg"
 			}
 		}

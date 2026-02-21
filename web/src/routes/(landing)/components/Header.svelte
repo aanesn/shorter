@@ -8,29 +8,20 @@
 	const navLinks = [
 		{
 			title: "Dynadot",
-			href: "https://www.dynadot.com/?rsc=shorter&rsctrn=shorter&rscreg=shorter&rsceh=shorter&rscsb=shorter&rscco=shorter&rscbo=shorter",
-			target: "_blank",
-			rel: "noreferrer"
+			href: "https://www.dynadot.com/?rsc=shorter&rsctrn=shorter&rscreg=shorter&rsceh=shorter&rscsb=shorter&rscco=shorter&rscbo=shorter"
 		},
-		{
-			title: "Repository",
-			href: "https://github.com/aanesn/shorter",
-			target: "_blank",
-			rel: "noreferrer"
-		},
+		{ title: "Repository", href: "https://github.com/aanesn/shorter" },
 		{ title: "Feedback", href: "mailto:contact@shorter.dev" }
 	]
-
-	const sheetLinks = [...navLinks, { title: "Search", href: "/search" }]
 </script>
 
-<header class="flex h-16 items-center justify-between lg:h-18">
+<header class="flex h-16 items-center justify-between lg:h-20">
 	<a href="/">
 		{@html Logomark}
 	</a>
 	<nav class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-x-8 lg:flex">
-		{#each navLinks as { title, href, target, rel }}
-			<Link {href} {target} {rel}>{title}</Link>
+		{#each navLinks as { title, href }}
+			<Link {href} class="text-sm">{title}</Link>
 		{/each}
 	</nav>
 	<Button class="hidden duration-300 lg:flex" href="/search">Search</Button>
@@ -47,8 +38,8 @@
 				{@html Logomark}
 			</div>
 			<div class="flex flex-col gap-y-1">
-				{#each sheetLinks as { title, href, target, rel }}
-					<Link {href} {target} {rel} class="text-lg">{title}</Link>
+				{#each [...navLinks, { title: "Search", href: "/search" }] as { title, href }}
+					<Link {href} class="text-lg">{title}</Link>
 				{/each}
 			</div>
 		</Sheet.Content>
