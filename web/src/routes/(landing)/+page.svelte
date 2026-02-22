@@ -22,7 +22,12 @@
 		<h1
 			class="text-center font-manrope text-4xl font-semibold md:text-5xl lg:text-6xl xl:text-[66px]"
 		>
-			Search for shorter <br /> domains
+			Search for
+			<span
+				class="bg-linear-to-tr from-red-400 via-sky-200 to-teal-600 bg-clip-text text-transparent"
+			>
+				shorter
+			</span> <br /> domains
 		</h1>
 		<h2 class="max-w-sm text-center text-neutral-400 max-md:text-balance lg:text-lg">
 			Find a shorter version of your domain like linktree.com -> linktr.ee
