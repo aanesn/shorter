@@ -2,6 +2,7 @@ use axum::{Router, routing::get};
 
 mod error;
 mod search;
+mod tlds;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
