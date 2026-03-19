@@ -1,9 +1,11 @@
 use crate::{error::AppError, tlds::TLDS};
+use anyhow::Context;
 use axum::{extract::Query, response::IntoResponse};
 use serde::Deserialize;
 
 const MAX_QUERY_LEN: usize = 255;
 const DEFAULT_DOMAIN: &str = "com";
+const MAX_SLD_LEN: usize = 63;
 
 #[derive(Deserialize)]
 pub struct SearchParams {
@@ -17,6 +19,10 @@ pub async fn get(
     check_query(&q)?;
 
     let domain = get_domain(&q);
+
+    let sld = get_sld(&domain)?;
+    check_sld(&sld)?;
+
     Ok(domain)
 }
 
@@ -37,4 +43,22 @@ fn get_domain(q: &str) -> String {
         .find(|w| TLDS.contains(w[1]))
         .map(|w| format!("{}.{}", w[0], w[1]))
         .unwrap_or_else(|| format!("{}.{}", parts[0], DEFAULT_DOMAIN))
+}
+
+fn get_sld(domain: &str) -> anyhow::Result<String> {
+    domain
+        .split('.')
+        .next()
+        .map(|sld| sld.chars().filter(|c| c.is_ascii_alphanumeric()).collect())
+        .context("domain must contain dot")
+}
+
+fn check_sld(sld: &str) -> anyhow::Result<()> {
+    if sld.is_empty() {
+        anyhow::bail!("sld cannot be empty")
+    }
+    if sld.len() > MAX_SLD_LEN {
+        anyhow::bail!("sld cannot be longer than {MAX_SLD_LEN} characters")
+    }
+    Ok(())
 }
