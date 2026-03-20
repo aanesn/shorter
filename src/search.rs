@@ -15,15 +15,22 @@ pub struct SearchParams {
 pub async fn get(
     Query(params): Query<SearchParams>,
 ) -> anyhow::Result<impl IntoResponse, AppError> {
-    let q = params.q.trim().to_lowercase();
+    let q = sanitize_query(&params.q);
     check_query(&q)?;
 
     let domain = get_domain(&q);
 
     let sld = get_sld(&domain)?;
-    check_sld(&sld)?;
+    check_sld(sld)?;
 
     Ok(domain)
+}
+
+fn sanitize_query(q: &str) -> String {
+    q.chars()
+        .filter(|c| c.is_ascii_alphanumeric() || *c == '.')
+        .collect::<String>()
+        .to_lowercase()
 }
 
 fn check_query(q: &str) -> anyhow::Result<()> {
@@ -37,7 +44,7 @@ fn check_query(q: &str) -> anyhow::Result<()> {
 }
 
 fn get_domain(q: &str) -> String {
-    let parts: Vec<&str> = q.split('.').collect();
+    let parts: Vec<&str> = q.trim_matches('.').split('.').collect();
     parts
         .windows(2)
         .find(|w| TLDS.contains(w[1]))
@@ -45,12 +52,8 @@ fn get_domain(q: &str) -> String {
         .unwrap_or_else(|| format!("{}.{}", parts[0], DEFAULT_DOMAIN))
 }
 
-fn get_sld(domain: &str) -> anyhow::Result<String> {
-    domain
-        .split('.')
-        .next()
-        .map(|sld| sld.chars().filter(|c| c.is_ascii_alphanumeric()).collect())
-        .context("domain must contain dot")
+fn get_sld(domain: &str) -> anyhow::Result<&str> {
+    domain.split('.').next().context("domain must contain dot")
 }
 
 fn check_sld(sld: &str) -> anyhow::Result<()> {
