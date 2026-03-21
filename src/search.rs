@@ -24,7 +24,14 @@ pub async fn get(
     check_sld(sld)?;
 
     for variant in vowel_removal_variants(sld) {
-        println!("{variant}");
+        for i in 1..variant.len() - 1 {
+            let (new_sld, new_tld) = variant.split_at(i);
+            if !TLDS.contains(new_tld) {
+                continue;
+            }
+            let new_domain = format!("{new_sld}.{new_tld}");
+            println!("{new_domain}")
+        }
     }
 
     Ok(domain)
