@@ -23,6 +23,10 @@ pub async fn get(
     let sld = get_sld(&domain)?;
     check_sld(sld)?;
 
+    for variant in vowel_removal_variants(sld) {
+        println!("{variant}");
+    }
+
     Ok(domain)
 }
 
@@ -64,4 +68,17 @@ fn check_sld(sld: &str) -> anyhow::Result<()> {
         anyhow::bail!("sld cannot be longer than {MAX_SLD_LEN} characters")
     }
     Ok(())
+}
+
+fn vowel_removal_variants(word: &str) -> Vec<String> {
+    let mut variants = vec![word.to_owned()];
+    let mut curr = word.to_owned();
+    for i in (1..curr.len()).rev() {
+        if !matches!(curr.as_bytes()[i], b'a' | b'e' | b'i' | b'o' | b'u') {
+            continue;
+        }
+        curr.remove(i);
+        variants.push(curr.clone());
+    }
+    variants
 }
