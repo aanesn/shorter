@@ -1,4 +1,5 @@
 <script>
+	import Input from "$lib/components/Input.svelte"
 	import Header from "./components/Header.svelte"
 </script>
 
@@ -10,7 +11,8 @@
 <Header />
 
 <div class="py-40">
-	<h1 class="text-center text-3xl font-medium lg:text-4xl">
-		find shorter versions of your domain.
-	</h1>
+	<div class="flex flex-col items-center gap-y-6">
+		<h1 class="text-center text-3xl font-medium">find shorter versions of your domain.</h1>
+		<Input class="max-w-xl" placeholder="type a domain..." autocomplete="off" autofocus />
+	</div>
 </div>
