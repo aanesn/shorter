@@ -2,6 +2,9 @@
 	import Header from "./components/Header.svelte"
 </script>
 
+<svelte:head>
+	<title>shorter</title>
+	<meta name="description" content="a domain shortener tool" />
+</svelte:head>
+
 <Header />
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
