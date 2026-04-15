@@ -1,7 +1,7 @@
 use crate::{error::AppError, tlds::TLDS};
 use anyhow::Context;
-use axum::{extract::Query, response::IntoResponse};
-use serde::Deserialize;
+use axum::{Json, extract::Query};
+use serde::{Deserialize, Serialize};
 
 const MAX_QUERY_LEN: usize = 255;
 const DEFAULT_DOMAIN: &str = "com";
@@ -12,13 +12,17 @@ pub struct SearchParams {
     q: String,
 }
 
-pub async fn get(
-    Query(params): Query<SearchParams>,
-) -> anyhow::Result<impl IntoResponse, AppError> {
+#[derive(Serialize)]
+pub struct SearchRes {
+    domains: Vec<String>,
+}
+
+pub async fn get(Query(params): Query<SearchParams>) -> anyhow::Result<Json<SearchRes>, AppError> {
     let q = sanitize_query(&params.q);
     check_query(&q)?;
 
     let domain = get_domain(&q);
+    let mut domains = vec![domain.clone()];
 
     let sld = get_sld(&domain)?;
     check_sld(sld)?;
@@ -26,15 +30,13 @@ pub async fn get(
     for variant in vowel_removal_variants(sld) {
         for i in 1..variant.len() - 1 {
             let (new_sld, new_tld) = variant.split_at(i);
-            if !TLDS.contains(new_tld) {
-                continue;
+            if TLDS.contains(new_tld) {
+                domains.push(format!("{new_sld}.{new_tld}"));
             }
-            let new_domain = format!("{new_sld}.{new_tld}");
-            println!("{new_domain}")
         }
     }
 
-    Ok(domain)
+    Ok(Json(SearchRes { domains }))
 }
 
 fn sanitize_query(q: &str) -> String {
