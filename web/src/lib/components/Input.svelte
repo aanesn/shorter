@@ -7,7 +7,7 @@
 
 <input
 	class={cx(
-		"h-12 w-full min-w-0 rounded-full bg-neutral-900 px-3.5 py-1 shadow-xs transition-[color,box-shadow] outline-none placeholder:text-neutral-500",
+		"h-12 w-full min-w-0 rounded-full bg-neutral-900 px-4 py-1 shadow-xs transition-[color,box-shadow] outline-none placeholder:text-neutral-500",
 		className
 	)}
 	bind:value

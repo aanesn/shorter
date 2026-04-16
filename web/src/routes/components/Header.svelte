@@ -14,8 +14,8 @@
 </script>
 
 <header class="flex h-16 items-center justify-between">
-	<nav class="flex items-center gap-x-2">
-		<a href="/" class="mr-2.5">
+	<nav class="flex items-center gap-x-3">
+		<a href="/" class="mr-3">
 			{@html Logomark}
 		</a>
 		{#each nav as { title, href }}

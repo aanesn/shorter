@@ -11,7 +11,7 @@
 				secondary: "hover:bg-neutral-900"
 			},
 			size: {
-				default: "h-7 px-2.5"
+				default: "h-7 px-3"
 			}
 		}
 	})
