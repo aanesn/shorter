@@ -9,8 +9,6 @@
 		{ title: "repo", href: "https://github.com/aanesn/shorter" },
 		{ title: "contact", href: "mailto:contact@shorter.dev" }
 	]
-
-	const dropdownMenu = [{ title: "start now", href: "/" }, ...nav]
 </script>
 
 <header class="flex h-16 items-center justify-between">
@@ -24,13 +22,13 @@
 			</Link>
 		{/each}
 	</nav>
-	<Link class="hidden duration-300 lg:flex">start now</Link>
+	<Link href="/search" class="hidden duration-300 lg:flex">start now</Link>
 	<DropdownMenu.Root>
 		<DropdownMenu.Trigger class="lg:hidden">
 			{@html Menu}
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content class="lg:hidden">
-			{#each dropdownMenu as { title, href }}
+			{#each [{ title: "start now", href: "/search" }, ...nav] as { title, href }}
 				<DropdownMenu.Item>
 					{#snippet child({ props })}
 						<a {...props} {href}>{title}</a>
