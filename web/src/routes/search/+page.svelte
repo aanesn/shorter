@@ -21,5 +21,10 @@
 	}))
 </script>
 
+<svelte:head>
+	<title>search | shorter</title>
+	<meta name="description" content="search for shorter versions of your domain" />
+</svelte:head>
+
 <Input placeholder="type a domain..." autocomplete="off" autofocus bind:value />
 {JSON.stringify(searchQuery.data)}
