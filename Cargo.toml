@@ -9,4 +9,4 @@ axum = "0.8.9"
 phf = { version = "0.13.1", features = ["macros"] }
 serde = { version = "1.0.228", features = ["derive"] }
 tokio = { version = "1.52.0", features = ["macros", "rt-multi-thread"] }
-tower-http = { version = "0.6.8", features = ["cors"] }
+tower-http = { version = "0.6.8", features = ["cors", "set-header"] }
