@@ -8,7 +8,8 @@
 		variants: {
 			intent: {
 				primary: "bg-white font-medium text-black hover:bg-white/80",
-				secondary: "hover:bg-neutral-900"
+				secondary: "hover:bg-neutral-900",
+				outline: "border hover:bg-neutral-900"
 			},
 			size: {
 				default: "h-7 px-3"
