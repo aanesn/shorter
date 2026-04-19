@@ -2,6 +2,7 @@ use crate::{error::AppError, tlds::TLDS};
 use anyhow::Context;
 use axum::{Json, extract::Query};
 use serde::{Deserialize, Serialize};
+use typeshare::typeshare;
 
 const MAX_QUERY_LEN: usize = 255;
 const DEFAULT_DOMAIN: &str = "com";
@@ -12,6 +13,7 @@ pub struct SearchParams {
     q: String,
 }
 
+#[typeshare]
 #[derive(Serialize)]
 pub struct SearchRes {
     domains: Vec<String>,

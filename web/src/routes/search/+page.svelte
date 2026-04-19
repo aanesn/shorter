@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 	import { browser } from "$app/environment"
 	import { goto } from "$app/navigation"
 	import { page } from "$app/state"
+	import type { SearchRes } from "$lib/bindings"
 	import Input from "$lib/components/Input.svelte"
 	import { apiUrl } from "$lib/utils"
 	import { createQuery } from "@tanstack/svelte-query"
@@ -14,7 +15,7 @@
 		goto(searchPath, { replaceState: true })
 	})
 
-	const searchQuery = createQuery(() => ({
+	const searchQuery = createQuery<SearchRes>(() => ({
 		queryKey: ["search", value],
 		queryFn: async () => await fetch(apiUrl + searchPath).then((res) => res.json()),
 		enabled: !!value
@@ -27,4 +28,4 @@
 </svelte:head>
 
 <Input placeholder="type a domain..." autocomplete="off" autofocus bind:value />
-{JSON.stringify(searchQuery.data)}
+{JSON.stringify(searchQuery.data?.domains)}
