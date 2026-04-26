@@ -5,7 +5,7 @@
 	import type { SearchRes } from "$lib/bindings"
 	import Input from "$lib/components/Input.svelte"
 	import Link from "$lib/components/Link.svelte"
-	import { apiUrl } from "$lib/utils"
+	import { apiUrl, dynadotUrl } from "$lib/utils"
 	import { createQuery } from "@tanstack/svelte-query"
 
 	let value = $state(browser ? (page.url.searchParams.get("q") ?? "") : "")
@@ -35,7 +35,7 @@
 			<div class="flex h-18 w-full items-center justify-between rounded-3xl border px-6">
 				<span class="truncate">{domain}</span>
 				<Link
-					href={"https://www.dynadot.com/domain/search?rscreg=shorter&domain=" + domain}
+					href={`${dynadotUrl}&domain=${domain}`}
 					intent="secondary"
 					class="text-red-500"
 				>

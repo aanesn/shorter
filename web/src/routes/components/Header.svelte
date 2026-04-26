@@ -3,9 +3,10 @@
 	import Menu from "$lib/assets/menu.svg?raw"
 	import Link from "$lib/components/Link.svelte"
 	import * as DropdownMenu from "$lib/components/dropdown-menu"
+	import { dynadotUrl } from "$lib/utils"
 
 	const nav = [
-		{ title: "dynadot", href: "https://www.dynadot.com/domain/search?rscreg=shorter" },
+		{ title: "dynadot", href: dynadotUrl },
 		{ title: "repo", href: "https://github.com/aanesn/shorter" },
 		{ title: "contact", href: "mailto:contact@shorter.dev" }
 	]

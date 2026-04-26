@@ -9,3 +9,5 @@ export const { cva, cx } = defineConfig({
 })
 
 export const apiUrl = dev ? "http://127.0.0.1:8080" : "https://api.shorter.dev"
+
+export const dynadotUrl = "https://www.dynadot.com/domain/search?rscreg=shorter"
