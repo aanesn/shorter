@@ -1,4 +1,5 @@
 use crate::{Ctx, error::AppError};
+use anyhow::Context;
 use axum::{
     Json,
     extract::{Query, State},
@@ -21,15 +22,18 @@ pub async fn get(
     Query(params): Query<LookupParams>,
     State(ctx): State<Ctx>,
 ) -> anyhow::Result<Json<LookupRes>, AppError> {
-    let nxdomain = ctx
+    let sld = params
+        .domain
+        .split('.')
+        .next()
+        .context("failed to get sld")?;
+    if sld.len() <= 1 {
+        return Ok(Json(LookupRes { available: false }));
+    }
+    let available = ctx
         .hickory
         .soa_lookup(format!("{}.", params.domain))
         .await
-        .is_err_and(|e| e.is_nx_domain());
-
-    if nxdomain {
-        return Ok(Json(LookupRes { available: true }));
-    }
-
-    Ok(Json(LookupRes { available: false }))
+        .is_err();
+    Ok(Json(LookupRes { available }))
 }

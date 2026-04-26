@@ -26,7 +26,7 @@ pub async fn get(Query(params): Query<SearchParams>) -> anyhow::Result<Json<Sear
     let domain = get_domain(&q);
     let mut domains = vec![domain.clone()];
 
-    let sld = get_sld(&domain)?;
+    let sld = domain.split('.').next().context("failed to get sld")?;
     check_sld(sld)?;
 
     for variant in vowel_removal_variants(sld) {
@@ -65,10 +65,6 @@ fn get_domain(q: &str) -> String {
         .find(|w| TLDS.contains(w[1]))
         .map(|w| format!("{}.{}", w[0], w[1]))
         .unwrap_or_else(|| format!("{}.{}", parts[0], DEFAULT_DOMAIN))
-}
-
-fn get_sld(domain: &str) -> anyhow::Result<&str> {
-    domain.split('.').next().context("domain must contain dot")
 }
 
 fn check_sld(sld: &str) -> anyhow::Result<()> {
