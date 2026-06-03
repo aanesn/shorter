@@ -6,9 +6,9 @@ edition = "2024"
 [dependencies]
 anyhow = "1.0.102"
 axum = "0.8.9"
-hickory-resolver = "0.26.0"
+hickory-resolver = "0.26.1"
 phf = { version = "0.13.1", features = ["macros"] }
 serde = { version = "1.0.228", features = ["derive"] }
-tokio = { version = "1.52.1", features = ["macros", "rt-multi-thread"] }
-tower-http = { version = "0.6.8", features = ["cors", "set-header"] }
+tokio = { version = "1.52.3", features = ["macros", "rt-multi-thread"] }
+tower-http = { version = "0.6.11", features = ["cors", "set-header"] }
 typeshare = "1.0.5"
