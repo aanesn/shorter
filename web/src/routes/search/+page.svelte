@@ -59,6 +59,6 @@
 				{/if}
 			</div>
 		{/each}
-		<span class="text-sm text-neutral-500">* these are affiliate links</span>
+		<span class="text-sm text-neutral-600">* affiliate links</span>
 	{/if}
 </div>

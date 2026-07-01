@@ -5,11 +5,13 @@
 	import * as DropdownMenu from "$lib/components/dropdown-menu"
 	import { dynadotUrl } from "$lib/utils"
 
-	const nav = [
+	const navLinks = [
 		{ title: "dynadot", href: dynadotUrl },
 		{ title: "repo", href: "https://github.com/aanesn/shorter" },
 		{ title: "contact", href: "mailto:contact@shorter.dev" }
 	]
+
+	const dropdownMenuLinks = [{ title: "start now", href: "/search" }, ...navLinks]
 </script>
 
 <header class="flex h-16 items-center justify-between">
@@ -17,7 +19,7 @@
 		<a href="/" class="mr-3">
 			{@html Logomark}
 		</a>
-		{#each nav as { title, href }}
+		{#each navLinks as { title, href }}
 			<Link {href} intent="secondary" class="hidden lg:flex">
 				{title}
 			</Link>
@@ -29,7 +31,7 @@
 			{@html Menu}
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content class="lg:hidden">
-			{#each [{ title: "start now", href: "/search" }, ...nav] as { title, href }}
+			{#each dropdownMenuLinks as { title, href }}
 				<DropdownMenu.Item>
 					{#snippet child({ props })}
 						<a {...props} {href}>{title}</a>
