@@ -13,7 +13,7 @@
 
 <div class="py-40">
 	<div class="flex flex-col items-center gap-y-6">
-		<h1 class="text-center font-manrope text-3xl font-medium tracking-tight lg:text-4xl">
+		<h1 class="text-center font-manrope text-3xl font-semibold tracking-tight lg:text-4xl">
 			search for shorter domains.
 		</h1>
 		<Input
@@ -31,4 +31,10 @@
 			{/each}
 		</div>
 	</div>
+</div>
+
+<div class="py-20">
+	<video class="rounded-4xl" autoplay muted loop playsinline>
+		<source src="/demo.mp4" type="video/mp4" />
+	</video>
 </div>
