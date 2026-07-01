@@ -33,7 +33,7 @@
 	</div>
 </div>
 
-<div class="py-20">
+<div class="pt-20 pb-40">
 	<video class="rounded-4xl" autoplay muted loop playsinline>
 		<source src="/demo.mp4" type="video/mp4" />
 	</video>
